@@ -1,7 +1,7 @@
 {
     "name": "Online Radio - live",
     "display": "standalone",
-    "start_url": "/",
+    "start_url": "/audio-player/",
     "short_name": "Online Radio",
     "theme_color": "#404040",
     "description": "Tune in to your favourite online radio stations",
