@@ -1,26 +1,51 @@
+/* eslint-disable no-restricted-globals */
+
 if ('undefined' === typeof window) {
     // eslint-disable-next-line no-undef
     importScripts(
         'https://storage.googleapis.com/workbox-cdn/releases/6.1.5/workbox-sw.js',
     );
-    
+
     const workbox = this['workbox'];
+
+    const IMAGE_CACHE = "images";
+    const FONT_CACHE = "fonts";
 
     // Note: Ignore the error that Glitch raises about workbox being undefined.
     workbox.setConfig({
         debug: false,
     });
 
+    self.addEventListener("message", (event) => {
+        if (event.data && event.data.type === "SKIP_WAITING") {
+            self.skipWaiting();
+        }
+    });
+
+
+
     // Demonstrates a custom cache name for a route.
     workbox.routing.registerRoute(
-        new RegExp('.*\\.(?:png|jpg|jpeg|svg|gif|woff2)'),
+        new RegExp('.*\\.(?:png|jpg|jpeg|svg|gif)'),
         new workbox.strategies.CacheFirst({
-            cacheName: 'asset-cache',
+            cacheName: IMAGE_CACHE,
             plugins: [
                 new workbox.expiration.ExpirationPlugin({
-                    maxEntries: 3,
+                    maxEntries: 30,
                 }),
             ],
         }),
+    );
+
+    workbox.routing.registerRoute(
+        ({ event }) => event.request.destination === 'font',
+        new workbox.strategies.StaleWhileRevalidate({
+            cacheName: FONT_CACHE,
+            plugins: [
+                new workbox.expiration.ExpirationPlugin({
+                    maxEntries: 15,
+                }),
+            ],
+        })
     );
 }
