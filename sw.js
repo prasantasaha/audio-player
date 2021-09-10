@@ -26,25 +26,25 @@ if ('undefined' === typeof window) {
 
     // Demonstrates a custom cache name for a route.
     workbox.routing.registerRoute(
-        new RegExp('.*\\.(?:png|jpg|jpeg|svg|gif)'),
+        ({event}) => event.request.destination === 'image',
         new workbox.strategies.CacheFirst({
             cacheName: IMAGE_CACHE,
             plugins: [
                 new workbox.expiration.ExpirationPlugin({
                     maxEntries: 30,
-                }),
+                })
             ],
         }),
     );
 
     workbox.routing.registerRoute(
         ({ event }) => event.request.destination === 'font',
-        new workbox.strategies.StaleWhileRevalidate({
+        new workbox.strategies.CacheFirst({
             cacheName: FONT_CACHE,
             plugins: [
                 new workbox.expiration.ExpirationPlugin({
                     maxEntries: 15,
-                }),
+                })
             ],
         })
     );
