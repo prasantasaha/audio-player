@@ -7,6 +7,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "test:no-watch": "npm run test -- --watchAll=false",
     "lint": "eslint src",
     "lint:fix": "eslint --fix",
     "format": "prettier --write src/**/*.{ts,tsx,css,md,json}"
@@ -20,7 +21,11 @@
     "styled-components": "5.3.1"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
     "@types/cheerio": "0.22.30",
+    "@types/jest": "^26.0.15",
     "@types/node": "^16.7.6",
     "@types/react": "^17.0.19",
     "@types/react-dom": "17.0.9",
