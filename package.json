@@ -4,7 +4,7 @@
   "private": true,
   "homepage": "http://prasantasaha.github.io/audio-player",
   "scripts": {
-    "watch": "react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test"
   },

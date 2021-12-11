@@ -13,7 +13,7 @@ const Wrapper = styled.div<{ expanded: boolean }>`
   left: 0;
   bottom: 0;
   width: 100%;
-  background-color: #404040;
+  background-color: rgba(64, 64, 64, ${props => (props.expanded ? 100 : 80)}%);
   color: white;
   text-align: center;
   display: flex;
@@ -23,7 +23,8 @@ const Wrapper = styled.div<{ expanded: boolean }>`
   justify-content: ${props => (props.expanded ? 'space-around' : 'space-between')};
   box-sizing: border-box;
   filter: drop-shadow(0 0 0.20rem black);
-  height: ${props => (props.expanded ? '100%' : undefined)};
+  height: ${props => (props.expanded ? '100%' : '80px')};
+  transition: height 0.15s ease-in;
 `;
 
 export interface IPlayerProps {

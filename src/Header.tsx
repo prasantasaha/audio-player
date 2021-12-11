@@ -23,10 +23,26 @@ const InnerWrapper = styled.div`
   justify-content: space-between;
   padding: 0 20px;
   height: 72px;
-  border-bottom: 1px solid #ccc;
-  background-color: black;
+  border-bottom: 1px solid grey;
+  background-color: #404040;
   align-items: center;
 `;
+
+const IconImage = styled.img`
+  border-radius: 50%;
+  width: 48px;
+  ::before {
+     content: '';
+     width: 48px;
+     height: 48px;
+     background-color: #ccc;
+     border-radius: 50%;
+     position: absolute;
+     top: 50%;
+     left: 24px;
+     transform: translateY(-50%);
+ }
+`
 
 interface ISuggestion {
   label: JSX.Element, value: string, channel: IChannelInfo
@@ -113,7 +129,7 @@ const Header = (): JSX.Element => {
   return (
     <OuterWrapper>
       <InnerWrapper>
-        <h1>Radio</h1>
+        <IconImage src={process.env.PUBLIC_URL + '/assets/icons/icon-x192.png'} alt='Logo' />
         <Box
           width="medium"
           gap="medium"
