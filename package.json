@@ -6,7 +6,10 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test"
+    "test": "react-scripts test",
+    "lint": "eslint src",
+    "lint:fix": "eslint --fix",
+    "format": "prettier --write src/**/*.{ts,tsx,css,md,json}"
   },
   "dependencies": {
     "grommet": "2.17.5",
@@ -24,6 +27,13 @@
     "@types/styled-components": "5.1.13",
     "axios": "^0.21.4",
     "cheerio": "0.22.0",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.27.1",
+    "husky": "^4.3.8",
+    "lint-staged": "^12.1.2",
+    "prettier": "^2.5.1",
     "react-scripts": "^4.0.3",
     "typescript": "3.9.4"
   },
@@ -37,6 +47,18 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "npm run test:no-watch"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{ts,tsx}": [
+      "eslint --fix",
+      "git add"
     ]
   }
 }
