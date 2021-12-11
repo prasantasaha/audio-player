@@ -4,44 +4,40 @@ import styled from 'styled-components';
 import { useAppContext } from './AppContext';
 
 import { PlayFill, PauseFill, Next, Previous } from 'grommet-icons'
+import { IconButton } from './ChannelInfo.styles'
 
-const Wrapper = styled.div`
-  display: flex;
-  align-items: center;
-`;
+const Container = styled.div<{ expanded: boolean }>`
+    display: flex;
+    align-items: center;
+    gap: ${(props) => (props.expanded ? '30px' : 0)};
+`
 
-const PlayerControls = (): JSX.Element => {
-  const {
-    currentChannel,
-    isPlaying,
-    togglePlayBack,
-    nextChannel,
-    prevChannel
-  } = useAppContext();
-  if (!currentChannel) {
-    return <Fragment />;
-  }
+const PlayerControls = ({ expanded }: { expanded: boolean }): JSX.Element => {
+    const {
+        currentChannel,
+        isPlaying,
+        togglePlayBack,
+        nextChannel,
+        prevChannel,
+    } = useAppContext()
+    if (!currentChannel) {
+        return <Fragment />
+    }
 
-  return (
-    <Wrapper>
-      <Button
-        icon={<Previous />}
-        onClick={() => prevChannel()}
-      />
+    return (
+        <Container expanded={expanded}>
+            <Button icon={<Previous />} onClick={() => prevChannel()} />
 
-      <Button
-        icon={isPlaying ? <PauseFill /> : <PlayFill />}
-        onClick={() => togglePlayBack()}
-        plain={false}
-        size={'large'}
-      />
+            <IconButton
+                icon={isPlaying ? <PauseFill /> : <PlayFill />}
+                onClick={() => togglePlayBack()}
+                plain={false}
+                size={expanded ? 'large' : undefined}
+            />
 
-      <Button
-        icon={<Next />}
-        onClick={() => nextChannel()}
-      />
-    </Wrapper>
-  );
-};
+            <Button icon={<Next />} onClick={() => nextChannel()} />
+        </Container>
+    )
+}
 
 export default PlayerControls;

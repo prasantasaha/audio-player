@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { Box, Button } from 'grommet'
+import { Box, Button, ButtonExtendedProps } from 'grommet'
 
 const Container = styled.div<{ expanded: boolean }>`
     display: flex;
@@ -23,15 +23,15 @@ const MediaArtContainer = styled(Box)<{ expanded: boolean }>`
 `
 
 const MediaArt = styled.img<{ expanded: boolean }>`
-    width: ${(props) => (props.expanded ? '30vh' : '60px')};
-    max-height: 30vh;
+    width: ${(props) => (props.expanded ? '50vh' : '60px')};
+    max-height: 50vh;
     max-width: ${(props) => (props.expanded ? '50vh' : '60px')};
     transition: max-width 0.15s ease-in-out;
     border-radius: 6px;
 `
 
-const IconButton = styled(Button)`
-    padding: 18px;
+const IconButton = styled(Button)<ButtonExtendedProps>`
+    padding: ${(props) => (props.size === 'large' ? '18px' : '12px')};
 `
 
 export { Container, MediaArtContainer, MediaArt, IconButton }

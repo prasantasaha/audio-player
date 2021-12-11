@@ -5,9 +5,9 @@ import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react
 import styled from 'styled-components';
 import { useAppContext } from './AppContext';
 import ChannelInfo from './ChannelInfo';
-import PlayerControls from './PlayerControls';
-import { areEqual } from './util';
-
+import PlayerActions from './PlayerActions'
+import PlayerControls from './PlayerControls'
+import { areEqual } from './util'
 
 const Container = styled.div<{ expanded: boolean }>`
     position: fixed;
@@ -177,7 +177,10 @@ const Player = (props: IPlayerProps): JSX.Element => {
                     setIsExpanded(expanded)
                 }}
             />
-            <PlayerControls />
+            <PlayerActions
+                currentChannel={currentChannel}
+                expanded={isExpanded}
+            />
         </Container>
     )
 }
