@@ -1,37 +1,33 @@
-import styled from "styled-components";
-import { Box, Button, Spinner } from 'grommet';
-import { Image } from 'grommet/components/Image';
-import { Text } from 'grommet/components/Text';
-import React, { useEffect, useState } from 'react';
-import { areEqual, IChannelInfo } from "./util";
-import { Share, Favorite } from 'grommet-icons'
-import { useAppContext } from "./AppContext";
-
-
-
-const Container = styled.div<{ expanded: boolean }>`
-  display: flex;
-  align-items: center;
-  font-size: 16px;
-  flex: 1;
-  gap:  ${props => (props.expanded ? '50px' : '10px')};
-  padding: ${props => (props.expanded ? '50px' : undefined)};
-  width: ${props => (props.expanded ? '100%' : undefined)};
-  flex-direction: ${props => (props.expanded ? 'column' : 'row')};
-  cursor: pointer;
-`
+import { Spinner } from 'grommet'
+import { Favorite, Share, StatusWarning } from 'grommet-icons'
+import { Text } from 'grommet/components/Text'
+import React, { useEffect, useState } from 'react'
+import { useAppContext } from './AppContext'
+import { areEqual, IChannelInfo } from './util'
+import {
+    Container,
+    IconButton,
+    MediaArt,
+    MediaArtContainer,
+} from './ChannelInfo.styles'
 
 interface IChannelInfoProps {
-    isLoading: boolean;
-    hasError: boolean;
-    isExpanded: boolean;
-    currentChannel: IChannelInfo;
-    onClick: (expanded: boolean) => void;
+    isLoading: boolean
+    hasError: boolean
+    isExpanded: boolean
+    currentChannel: IChannelInfo
+    onClick: (expanded: boolean) => void
 }
 
-const ChannelInfo = ({ isExpanded, isLoading, hasError, currentChannel, onClick }: IChannelInfoProps) => {
-    const [expanded, setExpanded] = useState<boolean>(false);
-    const [isFavourite, setIsFavourite] = useState<boolean>(false);
+const ChannelInfo = ({
+    isExpanded,
+    isLoading,
+    hasError,
+    currentChannel,
+    onClick,
+}: IChannelInfoProps) => {
+    const [expanded, setExpanded] = useState<boolean>(false)
+    const [isFavourite, setIsFavourite] = useState<boolean>(false)
 
     const { favouriteChannels, toggleFavouriteChannel } = useAppContext()
 
@@ -41,38 +37,44 @@ const ChannelInfo = ({ isExpanded, isLoading, hasError, currentChannel, onClick 
 
     useEffect(() => {
         if (!currentChannel?.id || !favouriteChannels) {
-            return;
+            return
         }
-        const favouriteChannel = favouriteChannels.find(channel => areEqual(channel.id, currentChannel.id));
+        const favouriteChannel = favouriteChannels.find((channel) =>
+            areEqual(channel.id, currentChannel.id)
+        )
         if (favouriteChannel && favouriteChannel.id) {
             setIsFavourite(true)
-            return;
+            return
         }
-        setIsFavourite(false);
+        setIsFavourite(false)
     }, [favouriteChannels, currentChannel])
+
     const handleOnClick = () => {
-        setExpanded(true);
-        onClick(true);
+        setExpanded(true)
+        onClick(true)
     }
 
     const handleToggleFavourite = () => {
-        toggleFavouriteChannel(currentChannel);
+        toggleFavouriteChannel(currentChannel)
     }
 
     const onHandleShare = async () => {
         if (!currentChannel || !currentChannel.id) {
-            return;
+            return
         }
 
         if (navigator.share) {
-            const params = new URLSearchParams();
-            params.set('channelId', currentChannel.id);
+            const params = new URLSearchParams()
+            params.set('channelId', currentChannel.id)
 
             try {
                 await navigator.share({
                     title: currentChannel.title,
                     text: 'Check out this online radio channel',
-                    url: `${window.location.href.replace(window.location.search, '')}?${params.toString()}`,
+                    url: `${window.location.href.replace(
+                        window.location.search,
+                        ''
+                    )}?${params.toString()}`,
                 })
             } catch (error) {
                 console.log(`Unable to share ${error}`)
@@ -81,32 +83,35 @@ const ChannelInfo = ({ isExpanded, isLoading, hasError, currentChannel, onClick 
     }
 
     return (
-        <Container
-            expanded={expanded}
-            onClick={handleOnClick}>
+        <Container expanded={expanded} onClick={handleOnClick}>
+            <MediaArtContainer expanded={expanded}>
+                {expanded && (
+                    <IconButton
+                        icon={<Favorite />}
+                        primary={isFavourite}
+                        onClick={handleToggleFavourite}
+                    />
+                )}
+                {currentChannel?.imageSrc && (
+                    <MediaArt
+                        expanded={expanded}
+                        src={currentChannel.imageSrc}
+                        alt="Media art"
+                    />
+                )}
+                {expanded && (
+                    <IconButton icon={<Share />} onClick={onHandleShare} />
+                )}
+            </MediaArtContainer>
 
-            {currentChannel?.imageSrc &&
-                <Image src={currentChannel.imageSrc}
-                    width={expanded ? '70%' : 60}
-                    style={{ maxHeight: '30vh', maxWidth: '30vh' }} />}
-
-            {expanded && <Box direction='row'
-                justify='between'
-                width='100%'
-                pad='0 15px'
-                margin='-80px 0 0'>
-                <Button size={'large'} icon={<Favorite />} primary={isFavourite} onClick={handleToggleFavourite} />
-                <Button size={'large'} icon={<Share />} onClick={onHandleShare} />
-            </Box>}
-
-            <Text size={expanded ? 'xlarge' : 'small'}
-                textAlign={'start'}>{currentChannel?.title}
+            <Text size={expanded ? 'xlarge' : 'small'} textAlign={'start'}>
+                {currentChannel?.title}
             </Text>
 
-            {isLoading
-                && !hasError && <Spinner />}
+            {isLoading && !hasError && <Spinner />}
+            {hasError && <StatusWarning />}
         </Container>
     )
 }
 
-export default ChannelInfo;
+export default ChannelInfo

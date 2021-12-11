@@ -24,7 +24,7 @@ const InnerWrapper = styled.div`
   padding: 0 20px;
   height: 72px;
   border-bottom: 1px solid grey;
-  background-color: #404040;
+  background-color: rgba(64, 64, 64, .8);
   align-items: center;
 `;
 
