@@ -6,7 +6,6 @@ import styled from 'styled-components';
 import { useAppContext } from './AppContext';
 import ChannelInfo from './ChannelInfo';
 import PlayerActions from './PlayerActions'
-import PlayerControls from './PlayerControls'
 import { areEqual } from './util'
 
 const Container = styled.div<{ expanded: boolean }>`
