@@ -1,10 +1,16 @@
-import { Button } from 'grommet';
-import { Down } from 'grommet-icons';
-import Hls, { ErrorData, ErrorTypes } from 'hls.js';
-import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react';
-import styled from 'styled-components';
-import { useAppContext } from './AppContext';
-import ChannelInfo from './ChannelInfo';
+import { Button } from 'grommet'
+import { Down } from 'grommet-icons'
+import Hls, { ErrorData, ErrorTypes } from 'hls.js'
+import React, {
+    Fragment,
+    useCallback,
+    useEffect,
+    useRef,
+    useState,
+} from 'react'
+import styled from 'styled-components'
+import { useAppContext } from './AppContext'
+import ChannelInfo from './ChannelInfo'
 import PlayerActions from './PlayerActions'
 import { areEqual } from './util'
 
@@ -184,5 +190,4 @@ const Player = (props: IPlayerProps): JSX.Element => {
     )
 }
 
-
-export default Player;
+export default Player

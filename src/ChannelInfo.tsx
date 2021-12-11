@@ -19,7 +19,7 @@ const ChannelInfo = ({
     hasError,
     currentChannel,
     onClick,
-}: IChannelInfoProps) => {
+}: IChannelInfoProps): JSX.Element => {
     const [expanded, setExpanded] = useState<boolean>(false)
 
     useEffect(() => {

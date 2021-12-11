@@ -1,7 +1,7 @@
-import { Button } from 'grommet';
-import React, { Fragment } from 'react';
-import styled from 'styled-components';
-import { useAppContext } from './AppContext';
+import { Button } from 'grommet'
+import React, { Fragment } from 'react'
+import styled from 'styled-components'
+import { useAppContext } from './AppContext'
 
 import { PlayFill, PauseFill, Next, Previous } from 'grommet-icons'
 import { IconButton } from './ChannelInfo.styles'
@@ -40,4 +40,4 @@ const PlayerControls = ({ expanded }: { expanded: boolean }): JSX.Element => {
     )
 }
 
-export default PlayerControls;
+export default PlayerControls
