@@ -2,7 +2,13 @@ import { Spinner } from 'grommet'
 import { StatusWarning } from 'grommet-icons'
 import { Text } from 'grommet/components/Text'
 import React, { useEffect, useState } from 'react'
-import { Container, MediaArt, MediaArtContainer } from './ChannelInfo.styles'
+import {
+    Container,
+    MediaArt,
+    MediaArtContainer,
+    MediaArtWrapper,
+    MediaStatusContainer,
+} from './ChannelInfo.styles'
 import { IChannelInfo } from './util'
 
 interface IChannelInfoProps {
@@ -34,21 +40,35 @@ const ChannelInfo = ({
     return (
         <Container expanded={expanded} onClick={handleOnClick}>
             <MediaArtContainer expanded={expanded}>
-                {currentChannel?.imageSrc && (
-                    <MediaArt
-                        expanded={expanded}
-                        src={currentChannel.imageSrc}
-                        alt="Media art"
-                    />
-                )}
+                <MediaArtWrapper expanded={expanded}>
+                    {currentChannel?.imageSrc && (
+                        <MediaArt
+                            src={currentChannel.imageSrc}
+                            alt="Media art"
+                        />
+                    )}
+                    {isLoading && !hasError && (
+                        <MediaStatusContainer>
+                            <Spinner
+                                size={expanded ? 'large' : 'medium'}
+                                color="white"
+                            />
+                        </MediaStatusContainer>
+                    )}
+                    {hasError && (
+                        <MediaStatusContainer>
+                            <StatusWarning
+                                size={expanded ? 'xlarge' : 'medium'}
+                                color="yellow"
+                            />
+                        </MediaStatusContainer>
+                    )}
+                </MediaArtWrapper>
             </MediaArtContainer>
 
             <Text size={expanded ? 'xlarge' : 'small'} textAlign={'start'}>
                 {currentChannel?.title}
             </Text>
-
-            {isLoading && !hasError && <Spinner />}
-            {hasError && <StatusWarning />}
         </Container>
     )
 }

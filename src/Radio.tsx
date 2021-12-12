@@ -32,7 +32,7 @@ const Radio = (): JSX.Element => {
                     <Player autoPlay={autoPlay} />
                 </>
             ) : (
-                <Spinner />
+                <Spinner size="large" />
             )}
         </Container>
     )

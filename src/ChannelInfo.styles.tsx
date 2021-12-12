@@ -21,17 +21,40 @@ const MediaArtContainer = styled(Box)<{ expanded: boolean }>`
     width ${(props) => (props.expanded ? '100%' : undefined)};
     padding: 0 15px
 `
-
-const MediaArt = styled.img<{ expanded: boolean }>`
+const MediaArtWrapper = styled.div<{ expanded?: boolean }>`
+    position: relative;
     width: ${(props) => (props.expanded ? '50vh' : '60px')};
     max-height: 50vh;
     max-width: ${(props) => (props.expanded ? '50vh' : '60px')};
+`
+
+const MediaArt = styled.img`
     transition: max-width 0.15s ease-in-out;
     border-radius: 6px;
+    width: 100%;
+    height: 100%;
 `
 
 const IconButton = styled(Button)<ButtonExtendedProps>`
     padding: ${(props) => (props.size === 'large' ? '18px' : '12px')};
 `
 
-export { Container, MediaArtContainer, MediaArt, IconButton }
+const MediaStatusContainer = styled.div`
+    position: absolute;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.2);
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+`
+
+export {
+    Container,
+    MediaArtContainer,
+    MediaArt,
+    IconButton,
+    MediaArtWrapper,
+    MediaStatusContainer,
+}
