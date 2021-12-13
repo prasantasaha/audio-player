@@ -8,9 +8,10 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "test:no-watch": "npm run test -- --watchAll=false",
-    "lint": "eslint src",
-    "lint:fix": "eslint --fix",
-    "format": "prettier --write src/**/*.{ts,tsx,css,md,json}"
+    "lint": "eslint src scripts",
+    "lint:fix": "eslint --fix src scripts",
+    "format": "prettier --write src/**/*.{ts,tsx,css,md,json}",
+    "ingest": "tsc --project scripts && node dist/scripts"
   },
   "dependencies": {
     "grommet": "2.17.5",
@@ -62,7 +63,7 @@
   },
   "lint-staged": {
     "src/**/*.{ts,tsx}": [
-      "eslint --fix",
+      "npm run lint:fix",
       "git add"
     ]
   }
