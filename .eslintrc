@@ -18,7 +18,7 @@
     "sourceType": "module"
   },
   "plugins": ["react", "@typescript-eslint"],
-  "ignorePatterns": ["**/build/static/**/*.js"],
+  "ignorePatterns": ["build/**/*.*", "dist/**/*.*"],
   "rules": {
   }
 }

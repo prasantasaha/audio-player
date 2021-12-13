@@ -52,8 +52,8 @@ const getJSONFromString = (objectString: string) => {
 
     try {
         return JSON.parse(correctJson)
-    } catch (error) {
-        // console.log(error)
+    } catch {
+        // just ignore the error
     }
     return {}
 }
